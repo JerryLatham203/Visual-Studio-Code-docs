@@ -1,0 +1,123 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+
+//function prototype
+void space(int arg);
+
+class EngineStart{
+    public:
+    int batteryLife;
+    int oilPercentage;
+    int fuelPercentage;
+    std::vector<int>SparkPlugs;
+
+    //using a constructor to initialize the values
+    EngineStart(){
+        //the rand() method gives a value from 0 to n
+        batteryLife = rand() % 100 + 1;
+        oilPercentage = rand() % 100 + 1;
+        fuelPercentage = rand() % 100 + 1;
+        //simulating four spark plugs
+        for(int x = 0; x < 4; x++){
+            SparkPlugs.push_back(rand() % 100 + 1);
+            //end of for loop
+        }
+        //end of constructor
+    }
+
+    void Start(){
+        std::cout<<"fluids circulating..\n";
+        /*The && operator needs two operands to check both variables against the value*/
+        //oil percentage if statement
+        if(oilPercentage <= 10 && oilPercentage > 1){
+            std::cout<<"oil level very low..\n";
+            //end of if statement
+        }else if(oilPercentage < 1){
+            //The conditional will always pass because of the random number generator parameters
+            std::cout<<"oil at 0%\n";
+            //end of else if statement
+        }else{
+            std::cout<<"oil level sufficient..\n";
+            //end of else statement
+        }
+
+        //battery life if statement
+        if(batteryLife < 25 && batteryLife > 5){
+            std::cout<<"battery life poor, service battery soon..\n";
+            //end of if statement
+        }else if(batteryLife <= 5){
+            std::cout<<"battery dead..\n";
+            //end of else if statement
+        }else{
+            std::cout<<"battery life sufficient..\n";
+            //end of else statement
+        }
+
+        //fuel percentage if statement
+        if(fuelPercentage <= 10 && fuelPercentage >= 1){
+            std::cout<<"fuel level low..\n";
+            //end of if statement
+        }else if(fuelPercentage < 1){
+            std::cout<<"fuel at 0%\n";
+            //end of else if statement
+        }else{
+            std::cout<<"fuel level sufficient..\n";
+            //end of else statement
+        }
+
+        //spark plug conditional
+        bool allPlugsGood = true;
+        for(int x = 0; x < SparkPlugs.size(); x++){
+            if(SparkPlugs[x] < 15){
+                allPlugsGood = false;
+                break;
+                //end of if statement
+            }
+            //end of for loop
+        }
+
+        if(allPlugsGood){
+            std::cout<<"Spark Plug Readings..\n";
+            std::cout<<"A:"<<SparkPlugs[0]<<std::endl;
+            std::cout<<"B:"<<SparkPlugs[1]<<std::endl;
+            std::cout<<"C:"<<SparkPlugs[2]<<std::endl;
+            std::cout<<"D:"<<SparkPlugs[3]<<std::endl;
+            std::cout<<"engine starting..\n";
+            //end of if statement
+        }else{
+            std::cout<<"engine starting roughly..\n";
+            std::cout<<"one or more spark plugs are not firing..\n";
+            std::cout<<"A:"<<SparkPlugs[0]<<"%"<<"\n";
+            std::cout<<"B:"<<SparkPlugs[1]<<"%"<<"\n";
+            std::cout<<"C:"<<SparkPlugs[2]<<"%"<<"\n";
+            std::cout<<"D:"<<SparkPlugs[3]<<"%"<<"\n";
+            //end of else statement
+        }
+        //end of method Start
+    }
+    //end of class
+};
+
+
+int main(){
+    srand(time(NULL));
+    EngineStart engine1;
+    std::cout<<"oil level:"<<engine1.oilPercentage<<"%\n";
+    std::cout<<"battery life:"<<engine1.batteryLife<<"%\n";
+    std::cout<<"fuel level:"<<engine1.fuelPercentage<<"%\n";
+    space(1);
+    engine1.Start();
+    return 0;
+    //end of main method
+}
+
+void space(int arg){
+    for(int x = 0; x < arg; x++){
+        std::cout << "\n";
+        //end of for loop
+    }
+    //end of method
+}
